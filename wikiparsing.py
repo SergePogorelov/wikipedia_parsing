@@ -1,3 +1,5 @@
+import threading
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -7,9 +9,8 @@ a = ord("а")
 LETTERS = {chr(i).upper(): 0 for i in range(a, a + 32)}
 
 
-def get_count_for_letter(letter):
+def count_animals(letter):
     params = {"title": "Категория:Животные_по_алфавиту", "from": letter}
-    count = 0
 
     while True:
         session = requests.Session()
@@ -26,12 +27,12 @@ def get_count_for_letter(letter):
         animals = animal_block.text.split("\n")
 
         if animals[0] != letter:
-            return count
+            return
 
-        count += len(animals) - 1
+        LETTERS[letter] += len(animals) - 1
 
         if len(animals) < 201:
-            return count
+            return
 
         params = {
             "title": "Категория:Животные_по_алфавиту",
@@ -39,8 +40,20 @@ def get_count_for_letter(letter):
         }
 
 
+def wait_until_threadings_finished():
+    for t in threading.enumerate()[1:]:
+        t.join()
+
+
+def print_result():
+    for k, v in LETTERS.items():
+        print(f"{k}: {v}")
+
+
 if __name__ == "__main__":
     for letter in LETTERS:
-        count = get_count_for_letter(letter)
-        LETTERS[letter] = count
-        print(f"{letter}: {count}")
+        thread = threading.Thread(target=count_animals, args=(letter,))
+        thread.start()
+
+    wait_until_threadings_finished()
+    print_result()
