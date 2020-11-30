@@ -14,7 +14,7 @@
 Перед тем, как начать: если вы не пользуетесь `Python 3`, вам нужно будет установить инструмент `virtualenv` при помощи `pip install virtualenv`. 
 Если вы используете `Python 3`, у вас уже должен быть модуль [venv](https://docs.python.org/3/library/venv.html), установленный в стандартной библиотеке.
 
-- Создайте на своем компютере папку проекта foodgram `mkdir wikipedia_parsing` и перейдите в нее `cd wikipedia_parsing`
+- Создайте на своем компютере папку проекта `mkdir wikipedia_parsing` и перейдите в нее `cd wikipedia_parsing`
 - Склонируйте этот репозиторий в текущую папку `git clone https://github.com/SergePogorelov/wikipedia_parsing .`
 - Создайте виртуальное окружение `python3 -m venv venv`
 - Активируйте виртуальное окружение `source venv/bin/activate`
