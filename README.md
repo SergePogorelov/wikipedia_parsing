@@ -2,9 +2,14 @@
 
 ### Скрипт, позволяющий получить из википедии список всех животных на русском языке и вывести количество животных на каждую букву алфавита. 
 
-## Ускорение скрипта
+## Ускорение скрипта с помощью потоков
 Для сокращения скорости работы скрипта проверка каждой буквы алфавита запускается в [**отдельном потоке**](https://docs.python.org/3/library/threading.html).
+Это позволило сократить скорость выполнения с **90** до **16 секунд**.
+
+## Ускорение скрипта c помощью асинхронных библиотек
+Добавлен [скрипт](https://github.com/SergePogorelov/wikipedia_parsing/blob/main/wikiparsingasinc.py) работющий асинхронно с помощью библиотек [**asyncio**](https://docs.python.org/3/library/asyncio.html) и [**aiohttp**](https://docs.aiohttp.org/en/stable/). 
 Это позволило сократить скорость выполнения с **90** до **19 секунд**.
+
 
 ## Установка на локальном компьютере
 Эти инструкции помогут вам создать копию проекта и запустить ее на локальном компьютере для целей разработки и тестирования.
@@ -64,4 +69,5 @@
 - [Requests](https://requests.readthedocs.io/en/master/)
 - [Beautifulsoup4](https://pypi.org/project/beautifulsoup4/)
 - [threading](https://docs.python.org/3/library/threading.html)
-
+- [asyncio](https://docs.python.org/3/library/asyncio.html)
+- [aiohttp](https://docs.aiohttp.org/en/stable/)
