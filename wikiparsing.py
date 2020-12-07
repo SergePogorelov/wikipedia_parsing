@@ -5,15 +5,14 @@ from bs4 import BeautifulSoup
 
 
 URL = "https://ru.wikipedia.org/w/index.php"
-a = ord("а")
-LETTERS = {chr(i).upper(): 0 for i in range(a, a + 32)}
+a = ord("А")
+LETTERS = {chr(i): 0 for i in range(a, a + 32)}
 
 
-def count_animals(letter):
+def count_animals(letter, session):
     params = {"title": "Категория:Животные_по_алфавиту", "from": letter}
 
     while True:
-        session = requests.Session()
         response = session.get(URL, params=params)
 
         try:
@@ -51,9 +50,12 @@ def print_result():
 
 
 if __name__ == "__main__":
-    for letter in LETTERS:
-        thread = threading.Thread(target=count_animals, args=(letter,))
-        thread.start()
+    with requests.Session() as session:
+        for letter in LETTERS:
+            thread = threading.Thread(
+                target=count_animals, args=(letter, session)
+            )
+            thread.start()
+        wait_until_threadings_finished()
 
-    wait_until_threadings_finished()
     print_result()
